@@ -1,0 +1,75 @@
+{% load static %}
+<!doctype html>
+<html>
+    <head>
+		<meta content="IE=edge" http-equiv="X-UA-Compatible">
+		<meta content="width=device-width,initial-scale=1" name="viewport">
+		<link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" >
+		<link rel="stylesheet" href="{% static 'css/bootstrap-grid.min.css' %}" >
+		<link rel="stylesheet" href="{% static 'css/bootstrap-reboot.min.css' %}" >
+		<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+
+    </head>
+    <body>
+
+		<div class="container" style="display: flex; justify-content: center; align-items: center; height: 100vh;">
+			<div class="row">
+				<div class="col-md-9">
+					<div class="panel panel-success">
+						<div class="panel-heading bg-warning card">
+							<h1>CLONE GIT REPOSITORY </h1>
+						</div>
+						<div class="panel-body">
+							<div class="btn-group-vertical" role="group" style="margin-top: 10px;">
+								<form method="post">
+									{% csrf_token %}
+									<label for="repo_url"> Enter Repository URL:</label><br>
+									<input type="url" id="repo_url" name="repo_url" required><br><br>
+									<button type="submit">Submit</button>
+								</form>						  
+							</div>
+							<div style="margin-bottom: 20px;"></div> <!-- Boşluk ekleyen div -->
+
+						</div>
+						<div class="panel-heading bg-warning card">
+							<h1>PREVIOUS ANALYSES</h1>
+
+						</div>
+						<div class="panel-body">
+							<table>
+								<thead>
+									<tr>
+										<th>Class Name</th>
+										<th>JavaDoc Comments</th>
+										<th>Other Comments</th>
+										<th>Code Lines</th>
+										<th>Function Count</th>
+										<th>Comment Deviation</th>
+										<th>Loc</th>
+									</tr>
+								</thead>
+								<tbody>
+									{% for result in results %}
+									<tr>
+										<td>{{ result.ClassName }}</td>
+										<td>{{ result.JavaDocComments }}</td>
+										<td>{{ result.OtherComments }}</td>
+										<td>{{ result.CodeLines }}</td>
+										<td>{{ result.FunctionCount }}</td>
+										<td>{{ result.CommentDeviation }}</td>
+										<td>{{ result.Loc }}</td>
+									</tr>
+									{% endfor %}
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>			
+		</div> 
+	
+		
+		<script src="{% static 'js/bootstrap.min.js' %}"></script>     
+		<script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>     
+    </body>
+</html>
